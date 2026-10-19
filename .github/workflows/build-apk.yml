@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
   workflow_dispatch:
 
 jobs:
@@ -14,11 +14,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -26,27 +21,29 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Make Gradlew Executable
-        run: |
-          if [ -f android/gradlew ]; then
-            chmod +x android/gradlew
-          elif [ -f gradlew ]; then
-            chmod +x gradlew
-          fi
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Build Android APK
         run: |
+          # Check if android folder exists
           if [ -d "android" ]; then
-            cd android && ./gradlew assembleDebug --stacktrace
-          else
-            ./gradlew assembleDebug --stacktrace
+            cd android
           fi
+
+          # Agar gradlew file nahi hai, toh wrapper generate karo
+          if [ ! -f "gradlew" ]; then
+            echo "Gradlew not found, generating wrapper..."
+            gradle wrapper
+          fi
+
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: anganwadi-app-debug
           path: |
-            android/app/build/outputs/apk/debug/*.apk
-            app/build/outputs/apk/debug/*.apk
+            **/build/outputs/apk/debug/*.apk
           retention-days: 7
