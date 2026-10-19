@@ -41,6 +41,14 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android || echo "Sync bypassed"
 
+      - name: Remove Missing Icon References from Manifest
+        run: |
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          if [ -f "$MANIFEST" ]; then
+            sed -i 's/android:icon="@mipmap\/ic_launcher"//g' "$MANIFEST"
+            sed -i 's/android:roundIcon="@mipmap\/ic_launcher_round"//g' "$MANIFEST"
+          fi
+
       - name: Build Android APK
         run: |
           if [ -d "android" ]; then
