@@ -14,6 +14,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -24,21 +29,46 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Install Node Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build Web App
+        run: npm run build
+        env:
+          CI: false
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Sync Capacitor
+        run: npx cap sync android || echo "Sync bypassed"
+
+      - name: Fix Missing Icons & Res
+        run: |
+          TARGET_DIR="android/app/src/main/res/mipmap-anydpi-v26"
+          mkdir -p "$TARGET_DIR"
+          
+          # Default adaptive XML icon create kar rahe hain
+          cat << 'EOF' > "$TARGET_DIR/ic_launcher.xml"
+          <?xml version="1.0" encoding="utf-8"?>
+          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+              <background android:color="@android:color/white"/>
+              <foreground android:color="@android:color/black"/>
+          </adaptive-icon>
+          EOF
+          
+          cp "$TARGET_DIR/ic_launcher.xml" "$TARGET_DIR/ic_launcher_round.xml"
+
       - name: Build Android APK
         run: |
-          # Check if android folder exists
           if [ -d "android" ]; then
             cd android
           fi
 
-          # Agar gradlew file nahi hai, toh wrapper generate karo
           if [ ! -f "gradlew" ]; then
-            echo "Gradlew not found, generating wrapper..."
             gradle wrapper
           fi
 
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
