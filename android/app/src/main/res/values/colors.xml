@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Anganwadi Poshan Palette -->
+    <color name="primary">#1E40AF</color>
+    <color name="primary_variant">#1D4ED8</color>
+    <color name="primary_light">#DBEAFE</color>
+    <color name="on_primary">#FFFFFF</color>
+    
+    <!-- Saffron & Emerald Accent -->
+    <color name="poshan_saffron">#D97706</color>
+    <color name="poshan_saffron_light">#FEF3C7</color>
+    <color name="poshan_emerald">#059669</color>
+    <color name="poshan_emerald_light">#D1FAE5</color>
+    
+    <!-- Nutrition Status Colors -->
+    <color name="status_normal">#059669</color>
+    <color name="status_mam">#D97706</color>
+    <color name="status_sam">#DC2626</color>
+    
+    <!-- Neutral Tones -->
+    <color name="background">#F8FAFC</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="border_color">#E2E8F0</color>
+</resources>

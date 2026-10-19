@@ -1,0 +1,3 @@
+import { NextResponse } from 'next/server'
+const children = [{ id: 'AW-042-01', mobile: '9890123456', regCode: 'ACT-7842-AG' }, { id: 'AW-042-02', mobile: '9765432109', regCode: 'ACT-9912-AM' }, { id: 'AW-042-03', mobile: '9422187654', regCode: 'ACT-3301-VS' }]
+export async function POST(request: Request) { const body = await request.json(); const child = children.find((item) => item.id === body.childId || (item.mobile === body.mobile && item.regCode === body.regCode)); return child ? NextResponse.json({ token: `mock-parent-${child.id}`, role: 'PARENT', childId: child.id }) : NextResponse.json({ error: 'Child activation failed' }, { status: 401 }) }

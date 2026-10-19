@@ -1,0 +1,3 @@
+import { NextResponse } from 'next/server'
+const records: Record<string, unknown> = { 'AW-042-01': { id: 'AW-042-01', name: 'Aarav Sachin Gaikwad', weight: 12.8, height: 91, growth: [{ month: 'Aug', weight: 9.2 }, { month: 'Oct', weight: 10.4 }, { month: 'Dec', weight: 11.1 }, { month: 'Feb', weight: 11.8 }, { month: 'Apr', weight: 12.4 }, { month: 'Jun', weight: 12.8 }], vaccines: [{ name: 'BCG + OPV', status: 'completed' }, { name: 'Vitamin A · Dose 2', status: 'next' }] } }
+export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) { const { id } = await params; const record = records[id]; return record ? NextResponse.json(record) : NextResponse.json({ error: 'Child not found' }, { status: 404 }) }

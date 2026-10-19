@@ -1,0 +1,2 @@
+import { NextResponse } from 'next/server'
+export async function POST(request: Request) { const body = await request.json(); if (!body.childId || typeof body.present !== 'boolean') return NextResponse.json({ error: 'childId and present are required' }, { status: 400 }); return NextResponse.json({ saved: true, childId: body.childId, present: body.present, date: body.date ?? new Date().toISOString().slice(0, 10) }) }

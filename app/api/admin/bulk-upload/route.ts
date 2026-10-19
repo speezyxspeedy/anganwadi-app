@@ -1,0 +1,2 @@
+import { NextResponse } from 'next/server'
+export async function POST(request: Request) { const form = await request.formData(); const file = form.get('file'); if (!(file instanceof File)) return NextResponse.json({ error: 'multipart file is required' }, { status: 400 }); const text = await file.text(); const recordsFound = Math.max(0, text.trim().split(/\r?\n/).length - 1); return NextResponse.json({ recordsFound, errors: [], message: `${recordsFound} records found, 0 errors` }) }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Anganwadi Parent Connect</string>
+    <string name="app_tagline">Child Health, Nutrition &amp; Attendance Tracking</string>
+    <string name="centre_code">AWC-042</string>
+    <string name="centre_name">Shivaji Nagar Anganwadi Centre</string>
+    <string name="default_worker">Rekha Tai Patil (Sevika)</string>
+    
+    <!-- Navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_children">Children</string>
+    <string name="nav_attendance">Attendance</string>
+    <string name="nav_growth">Growth Monitor</string>
+    <string name="nav_vaccines">Vaccinations</string>
+    <string name="nav_ration">Ration &amp; Poshan</string>
+    
+    <!-- Roles -->
+    <string name="role_admin">Anganwadi Worker / Sevika</string>
+    <string name="role_parent">Parent / Guardian</string>
+    
+    <!-- Status -->
+    <string name="status_normal">Normal (सामान्य)</string>
+    <string name="status_mam">Moderate Malnutrition - MAM (मध्यम कुपोषित)</string>
+    <string name="status_sam">Severe Malnutrition - SAM (तीव्र कुपोषित)</string>
+    <string name="status_present">Present (उपस्थित)</string>
+    <string name="status_absent">Absent (अनुपस्थित)</string>
+    
+    <!-- Offline & Sync -->
+    <string name="offline_ready">Offline Ready (ऑफलाइन उपलब्ध)</string>
+    <string name="sync_success">Records synced with Ministry servers</string>
+    <string name="sync_pending">Pending offline sync</string>
+</resources>
